@@ -18,6 +18,7 @@ import org.apache.commons.codec.binary.Base64;
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpVersion;
 import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpDelete;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
@@ -190,13 +191,12 @@ public final class Connection
 			throw new ConnectionNotInitializedException("Connection has not been initialized");
 		}
 		
-		System.out.println("ACTUAL VERSION SDK : " + Build.VERSION.SDK);
-		System.out.println("FROYO VERSION SDK : " + Build.VERSION_CODES.FROYO);
+		
 		
 		if (Integer.parseInt(Build.VERSION.SDK) <= Build.VERSION_CODES.FROYO) 
 		{
 	        System.setProperty("http.keepAlive", "false");
-	        System.out.println("C'EST LE CAS !!");
+	        System.out.println("Android version <= 2.2");
 	        
 	        if (httpVerb.equals(HttpVerb.GET))
 	        {
@@ -209,7 +209,7 @@ public final class Connection
 
 		        
 		        HttpResponse response = http_client.execute(http_get);
-		        System.out.println(response);
+		        //System.out.println(response);
 				InputStream content = response.getEntity().getContent();
 				
 				BufferedReader responseReader = new BufferedReader(new InputStreamReader(content));
@@ -221,7 +221,7 @@ public final class Connection
 				{
 					responseBuilder.append(line);
 				}
-				//System.out.println("Return get : " + responseBuilder.toString());
+				System.out.println("Return get : " + responseBuilder.toString());
 				
 				return (responseBuilder.toString());
 				
@@ -262,13 +262,11 @@ public final class Connection
 				{
 					responseBuilder.append(line);
 				}
-				//System.out.println("Return post: " + responseBuilder.toString());
-				
-				
+				System.out.println("Return post: " + responseBuilder.toString());
+			
 				return (responseBuilder.toString());
-				
-				
 	        }
+	        
 
 	        return null;
 	    }
@@ -691,7 +689,25 @@ public final class Connection
 	{	
 		Device device = gson.fromJson(this.registerDevice(deviceId), Device.class);
 		
-		doRequest(HttpVerb.DELETE, "/user/android_devices/" + String.valueOf(device.getId()));
+		if (Integer.parseInt(Build.VERSION.SDK) <= Build.VERSION_CODES.FROYO) 
+		{
+			System.setProperty("http.keepAlive", "false");
+	        System.out.println("Android version <= 2.2");
+	        
+			HttpClient http_client = new DefaultHttpClient();
+        	
+			
+			HttpDelete http_delete = new HttpDelete(backendUrl+"/user/android_devices/"+String.valueOf(device.getId()));
+			http_delete.setHeader("Authorization", "Basic " + authenticationString);
+			http_delete.setHeader("Accept", "application/json");
+			
+			http_client.execute(http_delete);
+		}
+		else
+		{
+			doRequest(HttpVerb.DELETE, "/user/android_devices/" + String.valueOf(device.getId()));
+		}
+		
 		
 		return device;
 	}
