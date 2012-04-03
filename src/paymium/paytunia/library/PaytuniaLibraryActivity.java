@@ -28,9 +28,9 @@ public class PaytuniaLibraryActivity extends Activity
         TextView a = (TextView) findViewById(R.id.textView1);
         
         Connection connection = Connection.getInstance().initialize("https://paytunia.com", 
-																	"trung.nguyen@paymium.com",
+																	//"trung.nguyen@paymium.com",
 																	//"nguyennhuquoctrung300890@gmail.com",
-		        													//"BC-U881424",
+		        													"BC-U881424",
 																	"trung.nguyen");
         try {
 
@@ -47,49 +47,30 @@ public class PaytuniaLibraryActivity extends Activity
 				/* PRINT THE FIRST PAGE AND THE SECOND PAGE OF TRANSACTIONS */
 				
 				
-				//First page 
-				ListTransaction transactions = connection.getTransfers(0,0);
-
-
-				System.out.println("**************PAGE 1**************");
-				for (int i = 0; i < transactions.size(); i++) 
-				{
-					System.out.println("----------------------------");
-					System.out.println(transactions.get(i).getId());
-				}
+				ListTransaction transactions = new ListTransaction();
 				
-				System.out.println("**************PAGE 2**************");
+
+				//First page (20 transactions per page)
+				System.out.println("**************PAGE 1**************");
+				transactions = connection.getTransfers(0,0); // or transactions = connection.getTransfers(1,20)
+				System.out.println(transactions.toString());
+				
 				
 				//Second page (20 transactions per page)
+				System.out.println("**************PAGE 2**************");		
 				transactions = connection.getTransfers(2,20);
-
-				for (int i = 0; i < transactions.size(); i++) 
-				{
-					System.out.println("----------------------------");
-					System.out.println(transactions.get(i).getId());
-				}
-					
-				
-				System.out.println("**************min_id = 24476**************");
-				//min_id = 24476
-				transactions = connection.getRecentTransfers(24476, 20);
-				
-				for (int i = 0; i < transactions.size(); i++) 
-				{
-					System.out.println("----------------------------");
-					System.out.println(transactions.get(i).getId());
-				}
+				System.out.println(transactions.toString());
 				
 				
-				System.out.println("**************max_id = 24476**************");
-				//max_id = 24476
-				transactions = connection.getPreviousTransfers(24476, 20);
+				//min_id = 24624
+				System.out.println("**************min_id = 24624**************");			
+				transactions = connection.getRecentTransfers(24624, 100);
+				System.out.println(transactions.toString());
 				
-				for (int i = 0; i < transactions.size(); i++) 
-				{
-					System.out.println("----------------------------");
-					System.out.println((i+1)+"/. " + transactions.get(i).getId());
-				}
+				//max_id = 24934
+				System.out.println("**************max_id = 24934**************");		
+				transactions = connection.getPreviousTransfers(24934, 20);
+				System.out.println(transactions.toString());
 				
 				
 				/* MAKE A TRANSFER */

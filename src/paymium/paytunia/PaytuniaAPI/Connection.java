@@ -221,8 +221,10 @@ public final class Connection
 				{
 					responseBuilder.append(line);
 				}
-				System.out.println("Return get : " + responseBuilder.toString());
+				//System.out.println("Return get : " + responseBuilder.toString());
+				
 				return (responseBuilder.toString());
+				
 	        }
 	        else if (httpVerb.equals(HttpVerb.POST))
 	        {
@@ -260,7 +262,9 @@ public final class Connection
 				{
 					responseBuilder.append(line);
 				}
-				System.out.println("Return post: " + responseBuilder.toString());
+				//System.out.println("Return post: " + responseBuilder.toString());
+				
+				
 				return (responseBuilder.toString());
 				
 				
@@ -398,16 +402,17 @@ public final class Connection
 
 		System.out.println("--Response Account : " + response);
 		
-		if (address && btc && unconfirmed_btc)
+		if (address && btc && unconfirmed_btc && !locked)
 		{
 			System.out.println("AUTHENTICATION SUCCESSFUL !!");
+			
 			String account = doRequest(HttpVerb.GET, "/account");
-			System.out.println("ACCOUNT : " + account);
 			cachedAccount = gson.fromJson(account, Account.class);
+			System.out.println("ACCOUNT : " + cachedAccount.toString());
+			
 			return cachedAccount;
 		}
-		
-		if (locked)
+		else if (locked)
 		{
 			this.setLocked(true);
 		}
@@ -467,7 +472,42 @@ public final class Connection
 	 */
 	public ListTransaction getRecentTransfers(int min_id, int number_of_transactions) throws IOException, ConnectionNotInitializedException 
 	{
-		return (gson.fromJson(doRequest(HttpVerb.GET, "/account/transfers?min_id=" + min_id + "&" + "per_page=" + number_of_transactions), ListTransaction.class));	
+		ListTransaction a = new ListTransaction();
+		ListTransaction b = new ListTransaction();
+		
+		int page = 1;
+		a = this.getTransfers(page,number_of_transactions);
+		
+		while (a.getLast().getId() > min_id)
+		{
+			for (int i = 0 ; i < a.size() ; i++ )
+			{
+				if (!b.contains(a.get(i)))
+				{
+					b.add(a.get(i));
+				}
+				
+			}
+			page++;
+			a = this.getTransfers(page,number_of_transactions);
+		}
+		
+		int j = 0;
+		while (a.get(j).getId() >= min_id )
+		{
+			b.add(a.get(j));
+			j++;
+		}	
+	
+		/*for (int i = 0; i < b.size(); i++) 
+		{
+			System.out.println("----------------------------");
+			System.out.println((i+1)+"/. " + b.get(i).getId());
+		}*/
+		
+		
+		//return (gson.fromJson(doRequest(HttpVerb.GET, "/account/transfers?min_id=" + min_id + "&" + "per_page=" + number_of_transactions), ListTransaction.class));	
+		return b;
 	}
 	
 	
