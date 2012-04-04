@@ -79,6 +79,9 @@ public final class Connection
 	/** The header. */
 	private String header;
 
+	/** The divice id. */
+	private int device_id;
+	
 	/**
 	 * Instantiates a new connection.
 	 * Private constructor prevents instantiation from other classes
@@ -666,16 +669,65 @@ public final class Connection
 	 * @throws IOException Signals that an I/O exception has occurred.
 	 * @throws ConnectionNotInitializedException the connection not initialized exception
 	 */
-	public String registerDevice(String deviceId) throws IOException, ConnectionNotInitializedException 
+	public Device registerDevice(String registration_key) throws IOException, ConnectionNotInitializedException 
 	{
-		JsonElement deviceData = gson.toJsonTree(new NewDevice(deviceId), NewDevice.class);
+		JsonElement deviceData = gson.toJsonTree(new NewDevice(registration_key), NewDevice.class);
 		JsonObject jsonData = new JsonObject();
 
 		jsonData.add("android_device", deviceData);
+		
+		Pattern pattern;
+		Matcher matcher;
+		boolean app_id,registration_id,user_id;
+		
+		String response = doRequest(HttpVerb.POST, "/user/android_devices", jsonData);
+		
+		pattern = Pattern.compile("app_id");
+		matcher = pattern.matcher(response);
+		app_id = matcher.find();
+					
+		pattern = Pattern.compile("registration_id");
+		matcher = pattern.matcher(response);
+		registration_id = matcher.find();
+		
+		pattern = Pattern.compile("user_id");
+		matcher = pattern.matcher(response);
+		user_id = matcher.find();
+		
+		System.out.println(app_id);
+		System.out.println(registration_id);
+		System.out.println(user_id);
+		
+		if(app_id && registration_id && user_id)
+		{
+			System.out.println("Response device registration : " + response);
+			
+			Device device = gson.fromJson(response, Device.class);
+			System.out.println(device.toString());
+			
+			this.setDevice_id(device.getId());
+			
+			return device;
+		}
+		else
+		{
+			System.out.println("Device registration fail !!");
+			
+			return null;
+		}
 
-		return doRequest(HttpVerb.POST, "/user/android_devices", jsonData);
 	}
 	
+
+	public int getDevice_id()
+	{
+		return this.device_id;
+	}
+
+	public void setDevice_id(int device_id) 
+	{
+		this.device_id = device_id;
+	}
 
 	/**
 	 * Delete the device id
@@ -685,9 +737,8 @@ public final class Connection
 	 * @throws IOException Signals that an I/O exception has occurred.
 	 * @throws ConnectionNotInitializedException the connection not initialized exception
 	 */
-	public Device deleteDevice(String deviceId) throws IOException, ConnectionNotInitializedException 
+	public String deleteDevice() throws IOException, ConnectionNotInitializedException 
 	{	
-		Device device = gson.fromJson(this.registerDevice(deviceId), Device.class);
 		
 		if (Integer.parseInt(Build.VERSION.SDK) <= Build.VERSION_CODES.FROYO) 
 		{
@@ -697,18 +748,19 @@ public final class Connection
 			HttpClient http_client = new DefaultHttpClient();
         	
 			
-			HttpDelete http_delete = new HttpDelete(backendUrl+"/user/android_devices/"+String.valueOf(device.getId()));
+			HttpDelete http_delete = new HttpDelete(backendUrl+"/user/android_devices/" + this.getDevice_id());
 			http_delete.setHeader("Authorization", "Basic " + authenticationString);
 			http_delete.setHeader("Accept", "application/json");
 			
-			http_client.execute(http_delete);
+			HttpResponse response = http_client.execute(http_delete);
+			
+			System.out.println(response.getAllHeaders().toString());
+			
+			return response.getAllHeaders().toString();
 		}
 		else
 		{
-			doRequest(HttpVerb.DELETE, "/user/android_devices/" + String.valueOf(device.getId()));
+			return doRequest(HttpVerb.DELETE, "/user/android_devices/" + this.getDevice_id());
 		}
-		
-		
-		return device;
 	}
 }

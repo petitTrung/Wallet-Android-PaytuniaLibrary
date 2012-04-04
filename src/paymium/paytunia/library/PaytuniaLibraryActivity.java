@@ -1,17 +1,13 @@
 package paymium.paytunia.library;
 
 import java.io.IOException;
-import java.math.BigDecimal;
 
 import paymium.paytunia.PaytuniaAPI.Connection;
-import paymium.paytunia.PaytuniaAPI.Currency;
 import paymium.paytunia.PaytuniaAPI.account.Account;
 import paymium.paytunia.PaytuniaAPI.account.NewAccount;
 import paymium.paytunia.PaytuniaAPI.account.RegisterAccount;
 import paymium.paytunia.PaytuniaAPI.exceptions.ConnectionNotInitializedException;
 import paymium.paytunia.PaytuniaAPI.transaction.ListTransaction;
-import paymium.paytunia.PaytuniaAPI.transfer.TransferAddressBitcoin;
-import paymium.paytunia.PaytuniaAPI.transfer.TransferMail;
 import android.app.Activity;
 import android.os.Bundle;
 import android.widget.TextView;
@@ -78,7 +74,7 @@ public class PaytuniaLibraryActivity extends Activity
 				
 				// By Email
 				
-				TransferMail transferMail = new TransferMail();
+				/*TransferMail transferMail = new TransferMail();
 				
 				transferMail.setEmail("nguyennhuquoctrung300890@gmail.com");
 				transferMail.setAmount(BigDecimal.valueOf(0.0623));
@@ -124,7 +120,7 @@ public class PaytuniaLibraryActivity extends Activity
 				System.out.println("++++++++++++++++++++++++++++++++++");
 				System.out.println(transaction.getClass().getSimpleName());
 				System.out.println(transaction.toString());
-				System.out.println("++++++++++++++++++++++++++++++++++");
+				System.out.println("++++++++++++++++++++++++++++++++++");*/
 				
 				
 				
