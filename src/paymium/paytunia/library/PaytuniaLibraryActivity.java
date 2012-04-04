@@ -90,7 +90,7 @@ public class PaytuniaLibraryActivity extends Activity
 				
 				
 				
-				// By Address Bitcoin
+				// By Bitcoin Address
 				
 				TransferAddressBitcoin transferAddressBitcoin = new TransferAddressBitcoin();
 				
@@ -107,7 +107,7 @@ public class PaytuniaLibraryActivity extends Activity
 				
 				
 				
-				// Sending to yourself ( Your Address Bitcoin )
+				// Sending to yourself ( Your Bitcoin Address )
 				
 				transferAddressBitcoin = new TransferAddressBitcoin();
 				
@@ -139,6 +139,7 @@ public class PaytuniaLibraryActivity extends Activity
 				/* REGISTER AND DELETE DEVICE TOKEN ( PUSH NOTIFICATION ) */
 				
 				//System.out.println(connection.registerDevice("APA91bH_N7p34tY4s7SsY-n2uN7TaI-8LyRcZvuURyQ_g9hn1m1JQ75SGAkPXu9Zl90h7MjIBDqNSjx-xpYtd7VRXA0Ux6LiHBoFS9up9Rrz8-M2gVP_Dkilme7GVtOOZBWEa-z9FJjwlMMO99E8CsZmnr9N5Dk-lQ"));
+				//connection.deleteDevice();
 				//connection.deleteDevice("APA91bH_N7p34tY4s7SsY-n2uN7TaI-8LyRcZvuURyQ_g9hn1m1JQ75SGAkPXu9Zl90h7MjIBDqNSjx-xpYtd7VRXA0Ux6LiHBoFS9up9Rrz8-M2gVP_Dkilme7GVtOOZBWEa-z9FJjwlMMO99E8CsZmnr9N5Dk-lQ");
 				
 				

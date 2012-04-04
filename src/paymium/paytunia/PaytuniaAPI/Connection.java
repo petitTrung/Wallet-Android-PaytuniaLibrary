@@ -760,6 +760,8 @@ public final class Connection
 		this.device_id = device_id;
 	}
 
+	
+	
 	/**
 	 * Delete the device id
 	 *
@@ -785,13 +787,55 @@ public final class Connection
 			
 			HttpResponse response = http_client.execute(http_delete);
 			
-			System.out.println(response.getAllHeaders().toString());
+			System.out.println("Content-Type : " + response.getEntity().getContentType());
+			System.out.println("Status Line : " + response.getStatusLine());
+			System.out.println("Status : " + response.getStatusLine().getStatusCode());
+			System.out.println(response.getAllHeaders());
 			
-			return response.getAllHeaders().toString();
+			return response.getStatusLine().toString();
 		}
 		else
 		{
 			return doRequest(HttpVerb.DELETE, "/user/android_devices/" + this.getDevice_id());
+		}
+	}
+	
+	/**
+	 * Delete the device id when we know device_id
+	 *
+	 * @param deviceId
+	 * @return Device
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws ConnectionNotInitializedException the connection not initialized exception
+	 */
+	public String deleteDevice(String device_id) throws IOException, ConnectionNotInitializedException 
+	{	
+		
+		if (Integer.parseInt(Build.VERSION.SDK) <= Build.VERSION_CODES.FROYO) 
+		{
+			System.setProperty("http.keepAlive", "false");
+	        System.out.println("Android version <= 2.2");
+	        
+			HttpClient http_client = new DefaultHttpClient();
+        	
+			
+			HttpDelete http_delete = new HttpDelete(backendUrl+"/user/android_devices/" + device_id);
+			http_delete.setHeader("Authorization", "Basic " + authenticationString);
+			http_delete.setHeader("Accept", "application/json");
+			
+			HttpResponse response = http_client.execute(http_delete);
+			
+			System.out.println("Content-Type : " + response.getEntity().getContentType());
+			System.out.println("Status Line : " + response.getStatusLine());
+			System.out.println("Status : " + response.getStatusLine().getStatusCode());
+			
+			System.out.println(response.getAllHeaders());
+			
+			return response.getStatusLine().toString();
+		}
+		else
+		{
+			return doRequest(HttpVerb.DELETE, "/user/android_devices/" + device_id);
 		}
 	}
 }
