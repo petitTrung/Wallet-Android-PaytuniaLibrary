@@ -476,6 +476,9 @@ public final class Connection
 		ListTransaction a = new ListTransaction();
 		ListTransaction b = new ListTransaction();
 		
+		//System.out.println("size b : " + b.size());
+		//System.out.println("size a : " + a.size());
+		
 		int page = 1;
 		a = this.getTransfers(page,number_of_transactions);
 		
@@ -483,22 +486,50 @@ public final class Connection
 		{
 			for (int i = 0 ; i < a.size() ; i++ )
 			{
-				if (!b.contains(a.get(i)))
-				{
-					b.add(a.get(i));
-				}
-				
+				b.add(a.get(i));		
 			}
 			page++;
 			a = this.getTransfers(page,number_of_transactions);
 		}
 		
-		int j = 0;
-		while (a.get(j).getId() >= min_id )
+		//int j = 0;
+		//System.out.println("size b : " + b.size());
+		//System.out.println("size a : " + a.size());
+		//System.out.println("list a : " + a.toString());
+		//System.out.println("page : " + page);
+		//System.out.println("min_id : " + min_id);
+		int index = 0;
+		for (int i = 0 ; i < a.size() ; i++)
 		{
-			b.add(a.get(j));
-			j++;
-		}	
+			if(a.get(i).getId() == min_id)
+			{
+				index = i;
+				break;
+			}
+		}
+		
+		System.out.println("Index : " + index);
+		
+		for(int i = 0 ; i < index ; i++)
+		{
+			b.add(a.get(i));
+		}
+		
+		/*if (a.size() == 1)
+		{
+			b = a;
+		}
+		else if (a.size() > 1)
+		{
+			System.out.println(a.get(j));
+			
+			while (a.get(j).getId() >= min_id )
+			{
+				b.add(a.get(j));
+				j++;
+			}
+		}*/
+			
 	
 		/*for (int i = 0; i < b.size(); i++) 
 		{

@@ -13,8 +13,15 @@ import java.util.LinkedList;
 public class ListTransaction extends LinkedList<Transaction>
 {
 
-	/** The Constant serialVersionUID. */
+	/**
+	 * 
+	 */
 	private static final long serialVersionUID = 1L;
+	
+	public ListTransaction()
+	{
+		
+	}
 	
 	public String toString()
 	{
