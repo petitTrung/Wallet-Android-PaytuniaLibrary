@@ -88,8 +88,8 @@ public class RegisterAccount
 				errorBuilder.append(line);
 			}
 
-			System.out.println("Code d'erreur : " + backendConnection.getResponseCode());
-			System.out.println("Message d'erreur : "+backendConnection.getResponseCode()+" "+errorBuilder.toString());
+			//System.out.println("Code d'erreur : " + backendConnection.getResponseCode());
+			//System.out.println("Message d'erreur : "+backendConnection.getResponseCode()+" "+errorBuilder.toString());
 			
 			
 			return String.valueOf(backendConnection.getResponseCode()+" "+errorBuilder.toString());
@@ -111,8 +111,8 @@ public class RegisterAccount
 			}
 			backendConnection.disconnect();	
 			
-			System.out.println("Code de succes : "+ backendConnection.getResponseCode());
-			System.out.println("Message de succes :"+backendConnection.getResponseCode());
+			//System.out.println("Code de succes : "+ backendConnection.getResponseCode());
+			//System.out.println("Message de succes :"+backendConnection.getResponseCode());
 			return responseBuilder.toString();
 		}
 		

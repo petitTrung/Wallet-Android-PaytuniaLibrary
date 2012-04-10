@@ -273,6 +273,7 @@ public final class Connection
 
 	        return null;
 	    }
+		
 		else
 		{
 			URL requestURL = new URL(backendUrl + path);
@@ -401,7 +402,7 @@ public final class Connection
 		matcher = pattern.matcher(response);
 		locked = matcher.find();
 
-		System.out.println("--Response Account : " + response);
+		//System.out.println("--Response Account : " + response);
 		
 		if (address && btc && unconfirmed_btc && !locked)
 		{
@@ -409,7 +410,7 @@ public final class Connection
 			
 			String account = doRequest(HttpVerb.GET, "/account");
 			cachedAccount = gson.fromJson(account, Account.class);
-			System.out.println("ACCOUNT : " + cachedAccount.toString());
+			//System.out.println("ACCOUNT : " + cachedAccount.toString());
 			
 			return cachedAccount;
 		}
@@ -595,7 +596,7 @@ public final class Connection
 	 * @throws IOException Signals that an I/O exception has occurred.
 	 * @throws ConnectionNotInitializedException the connection not initialized exception
 	 */
-	public Transaction postTransferMail(TransferMail transfer) throws IOException, ConnectionNotInitializedException 
+	public Object postTransferMail(TransferMail transfer) throws IOException, ConnectionNotInitializedException 
 	{
 		transfer.setType("EmailTransfer");
 		JsonElement transferData = gson.toJsonTree(transfer);
@@ -624,17 +625,18 @@ public final class Connection
 		matcher = pattern.matcher(response);
 		email = matcher.find();
 		
-		System.out.println("--Response transfer : " + response);
+		//System.out.println("--Response transfer : " + response);
 		if( address && amount && email )
 		{
-			System.out.println("Your transfer is done");
+			//System.out.println("Your transfer is done");
+			
 			return (gson.fromJson(response, Transaction.class));
 		}	
 		else
 		{
-			System.out.println("Please check the address of beneficiary");
+			//System.out.println("Please check the address of beneficiary");
 			
-			return null;
+			return response;
 		}
 	}
 	
@@ -677,15 +679,16 @@ public final class Connection
 		matcher = pattern.matcher(response);
 		email = matcher.find();
 		
-		System.out.println("--Response transfer : " + response);
+		//System.out.println("--Response transfer : " + response);
 		if( address && amount && email )
 		{
-			System.out.println("Your transfer is done");
+			//System.out.println("Your transfer is done");
+			
 			return (gson.fromJson(response, Transaction.class));
 		}	
 		else
 		{
-			System.out.println("Please check the address of beneficiary");
+			//System.out.println("Please check the address of beneficiary");
 			
 			return response;
 		}		
@@ -787,10 +790,10 @@ public final class Connection
 			
 			HttpResponse response = http_client.execute(http_delete);
 			
-			System.out.println("Content-Type : " + response.getEntity().getContentType());
-			System.out.println("Status Line : " + response.getStatusLine());
-			System.out.println("Status : " + response.getStatusLine().getStatusCode());
-			System.out.println(response.getAllHeaders());
+			//System.out.println("Content-Type : " + response.getEntity().getContentType());
+			//System.out.println("Status Line : " + response.getStatusLine());
+			//System.out.println("Status : " + response.getStatusLine().getStatusCode());
+			//System.out.println(response.getAllHeaders());
 			
 			return response.getStatusLine().toString();
 		}
@@ -825,11 +828,11 @@ public final class Connection
 			
 			HttpResponse response = http_client.execute(http_delete);
 			
-			System.out.println("Content-Type : " + response.getEntity().getContentType());
-			System.out.println("Status Line : " + response.getStatusLine());
-			System.out.println("Status : " + response.getStatusLine().getStatusCode());
+			//System.out.println("Content-Type : " + response.getEntity().getContentType());
+			//System.out.println("Status Line : " + response.getStatusLine());
+			//System.out.println("Status : " + response.getStatusLine().getStatusCode());
 			
-			System.out.println(response.getAllHeaders());
+			//System.out.println(response.getAllHeaders());
 			
 			return response.getStatusLine().toString();
 		}
