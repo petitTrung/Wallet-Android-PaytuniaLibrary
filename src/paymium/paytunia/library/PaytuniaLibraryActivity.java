@@ -24,9 +24,9 @@ public class PaytuniaLibraryActivity extends Activity
         TextView a = (TextView) findViewById(R.id.textView1);
         
         Connection connection = Connection.getInstance().initialize("https://paytunia.com", 
-																	//"trung.nguyen@paymium.com",
+																	"trung.nguyen@paymium.com",
 																	//"nguyennhuquoctrung300890@gmail.com",
-		        													"BC-U881424",
+		        													//"BC-U881424",
 																	"trung.nguyen");
         try {
 
@@ -46,6 +46,15 @@ public class PaytuniaLibraryActivity extends Activity
 				ListTransaction transactions = new ListTransaction();
 				
 
+				//First page, print all of details (20 transactions per page)
+				System.out.println("**************PAGE 1**************");
+				transactions = connection.getTransfers(0,0); // or transactions = connection.getTransfers(1,20)
+				for (int i = 0 ; i < transactions.size() ; i++)
+				{
+					System.out.println(transactions.get(i).toString());
+				}
+				
+				
 				//First page (20 transactions per page)
 				System.out.println("**************PAGE 1**************");
 				transactions = connection.getTransfers(0,0); // or transactions = connection.getTransfers(1,20)

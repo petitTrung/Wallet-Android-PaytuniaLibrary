@@ -57,27 +57,27 @@ public class Account
 
 	    asString.append("Account\n=============================\n");
 	    asString.append("Address           : ");
-	    asString.append(address);
+	    asString.append(this.address);
 	    asString.append("\n");
 	
 	    asString.append("BTC               : ");
-	    asString.append(btc.toString());
+	    asString.append(this.btc.toString());
 	    asString.append("\n");
 	
 	    asString.append("BTC (unconfirmed) : ");
-	    asString.append(unconfirmedBtc);
+	    asString.append(this.unconfirmedBtc);
 	    asString.append("\n");
 	
 	    asString.append("EUR               : ");
-	    asString.append(eur.toString());
+	    asString.append(this.eur.toString());
 	    asString.append("\n");
 	
 	    asString.append("LRUSD             : ");
-	    asString.append(lrusd.toString());
+	    asString.append(this.lrusd.toString());
 	    asString.append("\n");
 	
 	    asString.append("LREUR             : ");
-	    asString.append(lreur.toString());
+	    asString.append(this.lreur.toString());
 	    asString.append("\n\n");
 	
 	    return (asString.toString());

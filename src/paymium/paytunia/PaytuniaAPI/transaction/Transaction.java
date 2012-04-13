@@ -25,6 +25,10 @@ public class Transaction
 	/** The amount of transaction. */
 	@SerializedName("amount")
 	private BigDecimal amount;
+	
+	/** The status of transaction. */
+	@SerializedName("state")
+	private String state;
 
 	/** The currency used. */
 	@SerializedName("currency")
@@ -70,31 +74,32 @@ public class Transaction
 	@SerializedName("updated_at")
 	private Date updatedAt;
 
-	/** The type. */
-	@SerializedName("type")
-	private String type;
-
+	
+	
+	
 	/**
-	 * Gets the address.
+	 * Gets the id of transaction (on https://Paytunia.com).
 	 *
-	 * @return A String which indicate the address of beneficiary
+	 * @return An Integer which indicate the identity of transaction (on https://Paytunia.com).
 	 */
-	public String getAddress() 
+	public Integer getId() 
 	{
-		return address;
+		return id;
 	}
 
 	/**
-	 * Sets the address of beneficiary.
+	 * Sets the id.
 	 *
-	 * @param address
+	 * @param id
 	 */
-	public void setAddress(String address) 
+	public void setId(Integer id) 
 	{
-		this.address = address;
-		this.type = null;
+		this.id = id;
 	}
 
+	
+	
+	
 	/**
 	 * Gets the amount.
 	 *
@@ -115,6 +120,195 @@ public class Transaction
 		this.amount = amount;
 	}
 
+	
+	
+	
+	/**
+	 * Gets the transaction's state.
+	 *
+	 * @return A String which indicate the state of transaction
+	 */
+	public String getState() 
+	{
+		return state;
+	}
+
+	/**
+	 * Sets the transaction's state.
+	 *
+	 * @return A String which indicate the state of transaction
+	 */
+	public void setState(String state) 
+	{
+		this.state = state;
+	}
+
+	
+	
+	
+	/**
+	 * Gets the type of currency of transaction.
+	 *
+	 * @return A Currency which indicate the type of currency which is used in the transaction
+	 */
+	public Currency getCurrency() 
+	{
+		return currency;
+	}
+
+	/**
+	 * Sets the type of currency of transaction.
+	 *
+	 * @param currency the new currency
+	 */
+	public void setCurrency(Currency currency) 
+	{
+		this.currency = currency;
+	}
+	
+	
+	
+	
+	/**
+	 * Gets the number of confirmations.
+	 *
+	 * @return An Integer which indicate the number of confirmations of transaction
+	 */
+	public Integer getConfirmations() 
+	{
+		return confirmations;
+	}
+
+	/**
+	 * Sets the confirmations of transaction.
+	 *
+	 * @param confirmations
+	 */
+	public void setConfirmations(Integer confirmations) 
+	{
+		this.confirmations = confirmations;
+	}
+	
+	
+	
+	
+	/**
+	 * Gets the checks if the transaction is confirmed.
+	 *
+	 * @return A boolean which indicate if the transaction is confirmed
+	 */
+	public Boolean getIsConfirmed() 
+	{
+		return isConfirmed;
+	}
+
+	/**
+	 * Sets the checks if the transaction is confirmed.
+	 *
+	 * @param isConfirmed
+	 */
+	public void setIsConfirmed(Boolean isConfirmed) 
+	{
+		this.isConfirmed = isConfirmed;
+	}
+	
+	
+	
+	
+	/**
+	 * Gets the number of confirmations which remain to confirm the transaction.
+	 *
+	 * @return An Integer which indicate the number of confirmations which remain to confirm the transaction
+	 */
+	public Integer getConfirmationsToGo() 
+	{
+		return confirmationsToGo;
+	}
+
+	/**
+	 * Sets the number of confirmations which remain to confirm the transaction.
+	 *
+	 * @param confirmationsToGo
+	 */
+	public void setConfirmationsToGo(Integer confirmationsToGo) 
+	{
+		this.confirmationsToGo = confirmationsToGo;
+	}
+	
+	
+	
+	
+	/**
+	 * Gets the address.
+	 *
+	 * @return A String which indicate the address of beneficiary
+	 */
+	public String getAddress() 
+	{
+		return address;
+	}
+
+	/**
+	 * Sets the address of beneficiary.
+	 *
+	 * @param address
+	 */
+	public void setAddress(String address) 
+	{
+		this.address = address;
+	}
+
+
+	
+	
+	/**
+	 * Gets the email of beneficiary.
+	 *
+	 * @return A String which indicate the email of beneficiary
+	 */
+	public String getEmail() 
+	{
+		return email;
+	}
+
+	/**
+	 * Sets the email of beneficiary.
+	 *
+	 * @param email
+	 */
+	public void setEmail(String email) 
+	{
+		this.email = email;
+	}
+
+	
+	
+	
+	
+	/**
+	 * Gets the comment.
+	 *
+	 * @return A String which show the comment of transaction
+	 */
+	public String getComment() 
+	{
+		return comment;
+	}
+
+	/**
+	 * Sets the comment of transaction.
+	 *
+	 * @param comment
+	 */
+	public void setComment(String comment) 
+	{
+		this.comment = comment;
+	}
+	
+	
+	
+	
+	
 	/**
 	 * Gets the BTC transaction id.
 	 *
@@ -135,65 +329,33 @@ public class Transaction
 		this.bitcoinTransactionId = bitcoinTransactionId;
 	}
 
+
+
+
+
 	/**
-	 * Gets the comment.
+	 * Gets the checks if the transaction has already been consulted.
 	 *
-	 * @return A String which show the comment of transaction
+	 * @return A boolean which indicate if the transaction has already been consulted.
 	 */
-	public String getComment() 
+	public Boolean getIsUnread() 
 	{
-		return comment;
+		return isUnread;
 	}
 
 	/**
-	 * Sets the comment of transaction.
+	 * Sets the checks if the transaction has already been consulted.
 	 *
-	 * @param comment
+	 * @param isUnread
 	 */
-	public void setComment(String comment) 
+	public void setIsUnread(Boolean isUnread) 
 	{
-		this.comment = comment;
+		this.isUnread = isUnread;
 	}
-
-	/**
-	 * Gets the number of confirmations.
-	 *
-	 * @return An Integer which indicate the number of confirmations of transaction
-	 */
-	public Integer getConfirmations() 
-	{
-		return confirmations;
-	}
-
-	/**
-	 * Sets the confirmations of transaction.
-	 *
-	 * @param confirmations
-	 */
-	public void setConfirmations(Integer confirmations) 
-	{
-		this.confirmations = confirmations;
-	}
-
-	/**
-	 * Gets the number of confirmations which remain to confirm the transaction.
-	 *
-	 * @return An Integer which indicate the number of confirmations which remain to confirm the transaction
-	 */
-	public Integer getConfirmationsToGo() 
-	{
-		return confirmationsToGo;
-	}
-
-	/**
-	 * Sets the number of confirmations which remain to confirm the transaction.
-	 *
-	 * @param confirmationsToGo
-	 */
-	public void setConfirmationsToGo(Integer confirmationsToGo) 
-	{
-		this.confirmationsToGo = confirmationsToGo;
-	}
+	
+	
+	
+	
 
 	/**
 	 * Gets the date of transaction.
@@ -215,106 +377,11 @@ public class Transaction
 		this.createdAt = createdAt;
 	}
 
-	/**
-	 * Gets the type of currency of transaction.
-	 *
-	 * @return A Currency which indicate the type of currency which is used in the transaction
-	 */
-	public Currency getCurrency() 
-	{
-		return currency;
-	}
 
-	/**
-	 * Sets the type of currency of transaction.
-	 *
-	 * @param currency the new currency
-	 */
-	public void setCurrency(Currency currency) 
-	{
-		this.currency = currency;
-	}
 
-	/**
-	 * Gets the email of beneficiary.
-	 *
-	 * @return A String which indicate the email of beneficiary
-	 */
-	public String getEmail() 
-	{
-		return email;
-	}
 
-	/**
-	 * Sets the email of beneficiary.
-	 *
-	 * @param email
-	 */
-	public void setEmail(String email) 
-	{
-		this.email = email;
-		this.type = ("EmailTransfer");
-	}
 
-	/**
-	 * Gets the id of transaction.
-	 *
-	 * @return An Integer which indicate the identity of transaction
-	 */
-	public Integer getId() 
-	{
-		return id;
-	}
 
-	/**
-	 * Sets the id.
-	 *
-	 * @param id
-	 */
-	public void setId(Integer id) 
-	{
-		this.id = id;
-	}
-
-	/**
-	 * Gets the checks if the transaction is confirmed.
-	 *
-	 * @return A boolean which indicate if the transaction is confirmed
-	 */
-	public Boolean getIsConfirmed() 
-	{
-		return isConfirmed;
-	}
-
-	/**
-	 * Sets the checks if the transaction is confirmed.
-	 *
-	 * @param isConfirmed
-	 */
-	public void setIsConfirmed(Boolean isConfirmed) 
-	{
-		this.isConfirmed = isConfirmed;
-	}
-
-	/**
-	 * Gets the checks if the transaction has already been consulted.
-	 *
-	 * @return A boolean which indicate if the transaction has already been consulted.
-	 */
-	public Boolean getIsUnread() 
-	{
-		return isUnread;
-	}
-
-	/**
-	 * Sets the checks if the transaction has already been consulted.
-	 *
-	 * @param isUnread
-	 */
-	public void setIsUnread(Boolean isUnread) 
-	{
-		this.isUnread = isUnread;
-	}
 
 	/**
 	 * Gets the date when the transaction was made.
@@ -336,15 +403,6 @@ public class Transaction
 		this.updatedAt = updatedAt;
 	}
 
-	/**
-	 * Gets the type of transaction.
-	 *
-	 * @return A String which indicate the type of transaction
-	 */
-	public String getType() 
-	{
-		return type;
-	}
 
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
@@ -355,77 +413,124 @@ public class Transaction
 
 		stringBuilder.append("Transaction\n=============================\n");
 		stringBuilder.append("Id                   : ");
-		stringBuilder.append(id.toString());
+		stringBuilder.append(String.valueOf(this.id));
 		stringBuilder.append("\n");
 
-		stringBuilder.append("Currency             : ");
-		stringBuilder.append(currency.toString());
-		stringBuilder.append("\n");
-
+		
 		stringBuilder.append("Amount               : ");
-		stringBuilder.append(amount.toString());
+		stringBuilder.append(this.amount.toString());
 		stringBuilder.append("\n");
+		
+		
+		stringBuilder.append("State                : ");
+		stringBuilder.append(this.state);
+		stringBuilder.append("\n");
+		
+		
+		
+		stringBuilder.append("Currency             : ");
+		stringBuilder.append(this.currency.toString());
+		stringBuilder.append("\n");
+
+		
 
 		stringBuilder.append("Confirmations        : ");
-		if (confirmations != null) {
-			stringBuilder.append(confirmations.toString());
-		}
-		stringBuilder.append("\n");
-
-		stringBuilder.append("IsConfirmed          : ");
-		if (isConfirmed != null) {
-			stringBuilder.append(isConfirmed.toString());
-		}
-		stringBuilder.append("\n");
-
-		stringBuilder.append("ConfirmationsToGo    : ");
-		if (confirmationsToGo != null) {
-			stringBuilder.append(confirmationsToGo.toString());
-		}
-		stringBuilder.append("\n");
-
-		stringBuilder.append("Address              : ");
-		if (address != null) {
-			stringBuilder.append(address.toString());
+		if (this.confirmations != null) 
+		{
+			stringBuilder.append(this.confirmations.toString());
 		}
 		stringBuilder.append("\n");
 		
-		stringBuilder.append("E-mail               : ");
-		if (email != null) {
-			stringBuilder.append(email.toString());
+
+		
+		stringBuilder.append("IsConfirmed          : ");
+		if (this.isConfirmed != null) 
+		{
+			stringBuilder.append(this.isConfirmed.toString());
+		}
+		stringBuilder.append("\n");
+		
+		
+
+		stringBuilder.append("ConfirmationsToGo    : ");
+		if (this.confirmationsToGo != null) 
+		{
+			stringBuilder.append(this.confirmationsToGo.toString());
 		}
 		stringBuilder.append("\n");
 
-		stringBuilder.append("Comment              : ");
-		if (comment != null) {
-			stringBuilder.append(comment.toString());
+		
+		
+		
+		stringBuilder.append("Address              : ");
+		if (this.address != null) 
+		{
+			stringBuilder.append(this.address);
 		}
 		stringBuilder.append("\n");
+		
+		
+		
+		
+		stringBuilder.append("E-mail               : ");
+		if (this.email != null) 
+		{
+			stringBuilder.append(this.email.toString());
+		}
+		stringBuilder.append("\n");
+
+		
+		
+		
+		stringBuilder.append("Comment              : ");
+		if (this.comment != null) 
+		{
+			stringBuilder.append(this.comment.toString());
+		}
+		stringBuilder.append("\n");
+		
+		
+		
 
 		stringBuilder.append("BitcoinTransactionId : ");
-		if (bitcoinTransactionId != null) {
-			stringBuilder.append(bitcoinTransactionId.toString());
+		if (this.bitcoinTransactionId != null) 
+		{
+			stringBuilder.append(this.bitcoinTransactionId.toString());
 		}
 		stringBuilder.append("\n");
+		
+		
+		
 
 		stringBuilder.append("isUnread             : ");
-		if (isUnread != null) {
-			stringBuilder.append(isUnread.toString());
+		if (this.isUnread != null) 
+		{
+			stringBuilder.append(this.isUnread.toString());
 		}
 		stringBuilder.append("\n");
+		
+		
+		
 
 		stringBuilder.append("CreatedAt            : ");
-		if (createdAt != null) {
-			stringBuilder.append(createdAt.toString());
+		if (this.createdAt != null) 
+		{
+			stringBuilder.append(this.createdAt.toString());
 		}
 		stringBuilder.append("\n");
 
+		
+		
+		
 		stringBuilder.append("UpdatedAt            : ");
-		if (updatedAt != null) {
-			stringBuilder.append(updatedAt.toString());
+		if (this.updatedAt != null) 
+		{
+			stringBuilder.append(this.updatedAt.toString());
 		}
 		stringBuilder.append("\n\n");
 
+		
+		
 		return (stringBuilder.toString());
 	}
 }
