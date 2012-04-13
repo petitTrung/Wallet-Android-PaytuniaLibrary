@@ -29,6 +29,10 @@ public class Transaction
 	/** The status of transaction. */
 	@SerializedName("state")
 	private String state;
+	
+	/** The authentication token. */
+	@SerializedName("authentication_token")
+	private String authentication_token;
 
 	/** The currency used. */
 	@SerializedName("currency")
@@ -146,6 +150,27 @@ public class Transaction
 	
 	
 	
+	
+	
+	/**
+	 * Gets authentication token
+	 * @return
+	 */
+	
+	public String getAuthentication_token() 
+	{
+		return authentication_token;
+	}
+
+	/**
+	 * Sets authentication token
+	 * @param authentication_token
+	 */
+	public void setAuthentication_token(String authentication_token) 
+	{
+		this.authentication_token = authentication_token;
+	}
+
 	/**
 	 * Gets the type of currency of transaction.
 	 *
@@ -424,6 +449,12 @@ public class Transaction
 		
 		stringBuilder.append("State                : ");
 		stringBuilder.append(this.state);
+		stringBuilder.append("\n");
+		
+		
+		
+		stringBuilder.append("Authentication token : ");
+		stringBuilder.append(this.authentication_token);
 		stringBuilder.append("\n");
 		
 		

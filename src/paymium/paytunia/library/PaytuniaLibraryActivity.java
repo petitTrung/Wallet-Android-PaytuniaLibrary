@@ -77,6 +77,9 @@ public class PaytuniaLibraryActivity extends Activity
 				transactions = connection.getPreviousTransfers(24934, 20);
 				System.out.println(transactions.toString());
 				
+				System.out.println("ici on annule la transaction num 26683");
+				Object transaction = connection.CancelPendingTransaction(connection.getTransfers(1, 20).get(0));
+				System.out.println(transaction.toString());
 				
 				/* MAKE A TRANSFER */
 				

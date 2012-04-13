@@ -694,6 +694,53 @@ public final class Connection
 		}		
 	}
 
+	
+	/**
+	 * Cancel a pending transaction
+	 * @param transaction
+	 * @return
+	 * @throws IOException
+	 * @throws ConnectionNotInitializedException
+	 */
+	public Object CancelPendingTransaction(Transaction transaction) throws IOException, ConnectionNotInitializedException 
+	{
+		
+		Pattern pattern;
+		Matcher matcher;
+		boolean address,amount,email;
+
+		
+		JsonElement transferData = gson.toJsonTree(transaction.getAuthentication_token());
+		
+		JsonObject jsonData = new JsonObject();
+
+		jsonData.add("authentication_token", transferData);
+		
+		String response = doRequest(HttpVerb.POST, "/account/email_transfers/" + String.valueOf(transaction.getId()) + "/cancel",jsonData);
+		
+		//System.out.println("Cancel transaction : " + response);
+		
+		pattern = Pattern.compile("address");
+		matcher = pattern.matcher(response);
+		address = matcher.find();
+					
+		pattern = Pattern.compile("amount");
+		matcher = pattern.matcher(response);
+		amount = matcher.find();
+		
+		pattern = Pattern.compile("email");
+		matcher = pattern.matcher(response);
+		email = matcher.find();
+		
+		if( address && amount && email )
+		{
+			return (gson.fromJson(response, Transaction.class));
+		}	
+		else
+		{
+			return response;
+		}		
+	}
 
 	/**
 	 * Register the device id.
@@ -753,11 +800,19 @@ public final class Connection
 	}
 	
 
+	/**
+	 * Gets the device's id
+	 * @return
+	 */
 	public int getDevice_id()
 	{
 		return this.device_id;
 	}
 
+	/**
+	 * Sets the device's id
+	 * @param device_id
+	 */
 	public void setDevice_id(int device_id) 
 	{
 		this.device_id = device_id;
