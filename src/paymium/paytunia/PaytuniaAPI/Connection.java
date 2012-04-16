@@ -224,7 +224,7 @@ public final class Connection
 				{
 					responseBuilder.append(line);
 				}
-				System.out.println("Return get : " + responseBuilder.toString());
+				//System.out.println("Return get : " + responseBuilder.toString());
 				
 				return (responseBuilder.toString());
 				
@@ -265,7 +265,7 @@ public final class Connection
 				{
 					responseBuilder.append(line);
 				}
-				System.out.println("Return post: " + responseBuilder.toString());
+				//System.out.println("Return post: " + responseBuilder.toString());
 			
 				return (responseBuilder.toString());
 	        }
@@ -425,16 +425,37 @@ public final class Connection
 	
 	}
 	
+	/**
+	 * Gets the state of an account (normal or locked)
+	 * @return a boolean which indicate if the account is locked
+	 */
 	public boolean isLocked() 
 	{
 		return locked;
 	}
 
+	/**
+	 * Sets locked
+	 * @param locked
+	 */
 	public void setLocked(boolean locked) 
 	{
 		this.locked = locked;
 	}
 	
+	/**
+	 * Gets a transaction with an id
+	 * @param id
+	 * @return a transaction
+	 * @throws IOException
+	 * @throws ConnectionNotInitializedException
+	 */
+	public Transaction getTransfer(int id) throws IOException, ConnectionNotInitializedException 
+	{	
+		Object a = gson.fromJson(doRequest(HttpVerb.GET, "/account/transfers/" + id), Transaction.class);
+		System.out.println(a.toString());
+		return gson.fromJson(doRequest(HttpVerb.GET, "/account/transfers/" + id), Transaction.class);
+	}
 
 	// Method get transactions (according to page number and how many transactions per page)
 	/**

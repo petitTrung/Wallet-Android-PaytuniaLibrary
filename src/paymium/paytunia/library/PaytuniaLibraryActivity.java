@@ -8,6 +8,7 @@ import paymium.paytunia.PaytuniaAPI.account.NewAccount;
 import paymium.paytunia.PaytuniaAPI.account.RegisterAccount;
 import paymium.paytunia.PaytuniaAPI.exceptions.ConnectionNotInitializedException;
 import paymium.paytunia.PaytuniaAPI.transaction.ListTransaction;
+import paymium.paytunia.PaytuniaAPI.transaction.Transaction;
 import android.app.Activity;
 import android.os.Bundle;
 import android.widget.TextView;
@@ -42,6 +43,9 @@ public class PaytuniaLibraryActivity extends Activity
 				a.setText(account.toString());
 				/* PRINT THE FIRST PAGE AND THE SECOND PAGE OF TRANSACTIONS */
 				
+				
+				Transaction b = connection.getTransfer(26767);
+				System.out.println(b.toString());
 				
 				ListTransaction transactions = new ListTransaction();
 				
