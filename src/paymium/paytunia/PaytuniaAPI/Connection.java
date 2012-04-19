@@ -407,9 +407,7 @@ public final class Connection
 		if (address && btc && unconfirmed_btc && !locked)
 		{
 			System.out.println("AUTHENTICATION SUCCESSFUL !!");
-			
-			String account = doRequest(HttpVerb.GET, "/account");
-			cachedAccount = gson.fromJson(account, Account.class);
+			cachedAccount = gson.fromJson(response, Account.class);
 			//System.out.println("ACCOUNT : " + cachedAccount.toString());
 			
 			return cachedAccount;
